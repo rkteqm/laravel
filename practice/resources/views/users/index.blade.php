@@ -1,10 +1,5 @@
-{{
-    "Welcome to users index page...!"
-}}
-<h2>
-    {{ $name }}
-</h2>
+@extends('layouts.main')
 
-<h2>
-    {{ $id }}
-</h2>
+@section('main-section')
+        <h1 class="text-center">"Welcome to users index page...!"</h1>
+@endsection

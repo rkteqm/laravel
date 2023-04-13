@@ -46,18 +46,55 @@ use Illuminate\Support\Facades\Route;
 //     return view('home')->with($data);
 // });
 
-Route::get('/', function () {
-    return view('home');
-});
+// Route::get('/', function () {
+//     return view('home');
+// });
 
-Route::get('/services', function () {
-    return view('services');
-});
+// Route::get('/services', function () {
+//     return view('services');
+// });
 
-Route::get('/contact', function () {
-    return view('contact');
-});
+// Route::get('/contact', function () {
+//     return view('contact');
+// });
 
-Route::get('/about', function () {
-    return view('about');
+// Route::get('/about', function () {
+//     return view('about');
+// });
+
+
+// // Using democontroller for routing----------------BASIC CONTROLLER
+// use App\Http\Controllers\DemoController;
+
+// Route::get('/', [DemoController::class, 'home']);
+// Route::get('/services', [DemoController::class, 'services']);
+// Route::get('/contact', [DemoController::class, 'contact']);
+
+// // This is another way of routing
+// Route::get('/about', 'App\Http\Controllers\DemoController@about');
+
+// // Using singleactioncontroller for routing----------------SINGLE ACTION CONTROLLER
+// use App\Http\Controllers\SingleActionController;
+
+// Route::get('/users/index', SingleActionController::class);
+
+// // Using singleactioncontroller for routing----------------RESOURCE CONTROLLER
+// use App\Http\Controllers\ProductController;
+
+// Route::resource('/product', ProductController::class);
+
+
+// Registration controller
+use App\Http\Controllers\RegistrationController;
+
+Route::get('/register', [RegistrationController::class, 'index']);
+Route::post('/register', [RegistrationController::class, 'register']);
+
+// Printing data from database using customer model
+use App\Models\Customer;
+Route::get('/customer', function () {
+    $customers = Customer::all();
+    echo "<pre>";
+    // print_r($customers); // in object
+    print_r($customers->toArray()); // in array
 });

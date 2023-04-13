@@ -1,0 +1,11 @@
+php artisan make:controller RegistrationController // basic controlller
+php artisan make:controller SingleActionController --invokable // Single Action Controller
+php artisan make:controller ProductController --resource // Resource Controller
+php artisan make:component Input // For creating Input component
+php artisan config:Cache // For clearing cache
+php artisan make:migration create_customers_table // For magrate customers table
+php artisan migrate:rollback // for rollback previous migration
+php artisan make:migration add_coloumns_to_customers_table // 
+php artisan migrate // for create migration
+php artisan make:model Customer // for creating model
+php artisan make:model Product --migration // creating model as well as migration of Product 
