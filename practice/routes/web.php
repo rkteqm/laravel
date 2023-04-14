@@ -84,17 +84,25 @@ use Illuminate\Support\Facades\Route;
 // Route::resource('/product', ProductController::class);
 
 
-// Registration controller
-use App\Http\Controllers\RegistrationController;
+// // Registration controller
+// use App\Http\Controllers\RegistrationController;
 
-Route::get('/register', [RegistrationController::class, 'index']);
-Route::post('/register', [RegistrationController::class, 'register']);
+// Route::get('/register', [RegistrationController::class, 'index']);
+// Route::post('/register', [RegistrationController::class, 'register']);
 
-// Printing data from database using customer model
-use App\Models\Customer;
-Route::get('/customer', function () {
-    $customers = Customer::all();
-    echo "<pre>";
-    // print_r($customers); // in object
-    print_r($customers->toArray()); // in array
-});
+// // Printing data from database using customer model
+// use App\Models\Customer;
+// Route::get('/customer', function () {
+//     $customers = Customer::all();
+//     echo "<pre>";
+//     // print_r($customers); // in object
+//     print_r($customers->toArray()); // in array
+// });
+
+
+// insert data using form
+use App\Http\Controllers\CustomerController;
+Route::get('/', [CustomerController::class, 'home']);
+Route::resource('/customer', CustomerController::class);
+Route::post('/customer/create', [CustomerController::class, 'store'])->name('customer.create');
+Route::post('/customer/{id?}/edit', [CustomerController::class, 'update']);
