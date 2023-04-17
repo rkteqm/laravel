@@ -7,7 +7,7 @@
     @endphp --}}
 
     <div class="container">
-        <h1 class="m-4 text-center">Welcome to users index page...!</h1>
+        <h1 class="m-4 text-center">Welcome to users trash page...!</h1>
         @if ($message = Session::get('success'))
             <div class="alert alert-success">
                 <p>{{ $message }}</p>
@@ -22,7 +22,6 @@
                     <th>Name/Email/Profile-Pic</th>
                     <th>Gender/DOB</th>
                     <th>Address</th>
-                    {{-- <th>Status</th> --}}
                     <th>Actions</th>
                 </tr>
             </thead>
@@ -56,21 +55,14 @@
                             <p class="text-muted mb-0"> {{ $customer->city }}, {{ $customer->state }},
                                 {{ $customer->country }}</p>
                         </td>
-                        {{-- <td>
-                            @if ($customer->status == 1)
-                                <span class="badge bg-success">Active</span>
-                            @else
-                                <span class="badge bg-secondary">Inactive</span>
-                            @endif
-
-                        </td> --}}
                         <td>
-                            <a href="{{ url('/customer') }}/{{ $customer->id }}/show"><button
-                                    class="btn btn-primary">View</button></a>
-                            <a href="/customer/{{ $customer->id }}/edit"><button class="btn btn-info">Edit</button></a>
-                            <a href="{{ route('customer.trash', ['id' => $customer->id]) }}"><button
-                                    class="btn btn-warning">Move to Trash</button></a>
-                            {{-- <a href="{{ route('customer.destroy', ['id' => $customer->id]) }}"><button class="btn btn-danger">Delete</button></a> --}}
+                            <a href="{{ route('customer.restore', ['id' => $customer->id]) }}">
+                                <button class="btn btn-success">Restore</button>
+                            </a>
+                            <a  href="{{ route('customer.pdelete', ['id' => $customer->id]) }}">
+                            <a onclick="return confirm('Are you sure? You want to delete permanently')" href="{{ route('customer.pdelete', ['id' => $customer->id]) }}">
+                                <button class="btn btn-danger">Permanent Delete</button>
+                            </a>
                         </td>
                     </tr>
                 @endforeach

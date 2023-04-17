@@ -4,19 +4,26 @@ namespace App\Http\Controllers;
 
 use App\Models\Customer;
 use Illuminate\Http\Request;
+use Illuminate\Validation\Rules\Password;
 
 class CustomerController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
-    public function home(){
-        return view('customer.home');
+    public function home(Request $request)
+    {
+        if ($request->isMethod('post')) {
+            return redirect('')->with('success', "Post method is hitted");
+        } else {
+            return view('customer.home');
+        }
     }
     public function index()
     {
         // $customers = Customer::orderBy('name')->get(); // order by name
-        $customers = Customer::orderBy('id', 'desc')->get(); // order id ny descending 
+        $customers = Customer::where('soft_delete', 1)->orderBy('id', 'desc')->get(); // order id by descending 
+        // p($customers); // printing using custom helper
         // $customers = $customers->toArray();
         // echo "<pre>";
         // // print_r($customers); // in object
@@ -50,7 +57,15 @@ class CustomerController extends Controller
                 'city' => 'required',
                 'state' => 'required',
                 'country' => 'required',
-                'password' => 'required',
+                'password' => [
+                    'required',
+                    Password::min(8)
+                        ->letters()
+                        ->mixedCase()
+                        ->numbers()
+                        ->symbols()
+                    // ->uncompromised() // for not use rare password like Abcd@123
+                ],
                 'confirm_password' => 'required|same:password',
             ]
         );
@@ -69,7 +84,7 @@ class CustomerController extends Controller
         $customer->country = $request['country'];
         $customer->password = md5($request['password']);
         if ($customer->save()) {
-            return redirect()->action([CustomerController::class, 'index']);
+            return redirect()->action([CustomerController::class, 'index'])->with('success', 'Customer has been saved');
         }
     }
 
@@ -138,7 +153,7 @@ class CustomerController extends Controller
         $customer->state = $request['state'];
         $customer->country = $request['country'];
         if ($customer->save()) {
-            return redirect()->action([CustomerController::class, 'index']);
+            return redirect()->action([CustomerController::class, 'index'])->with('success', 'Customer updated Successfully!');
         }
     }
 
@@ -147,6 +162,60 @@ class CustomerController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        $customer = Customer::find($id);
+        if (!is_null($customer)) {
+            // hard delete
+            // $customer->delete(); 
+
+            // soft delete manually
+            $customer->soft_delete = 0;
+            if ($customer->save()) {
+                return redirect()->action([CustomerController::class, 'index']);
+            }
+        }
+        return redirect()->action([CustomerController::class, 'index']);
+    }
+
+    public function trash(string $id)
+    {
+        $customer = Customer::find($id);
+        if (!is_null($customer)) {
+            $customer->delete();
+        }
+        return redirect()->action([CustomerController::class, 'index'])->with('success', 'Moved to trash successfully');
+    }
+
+    // trash listing
+    public function trashdata()
+    {
+        $customers = Customer::onlyTrashed()->get();
+
+        return view('customer.trashdata', compact('customers'));
+    }
+
+    // for restore trash data
+    public function restore(string $id)
+    {
+        $customer = Customer::withTrashed()->find($id);
+        if (!is_null($customer)) {
+            $customer->restore();
+        }
+        return redirect('customer/trashdata')->with('success', 'Customer restored successfully');
+    }
+
+    // for permanent delete
+    public function pdelete(string $id)
+    {
+        $customer = Customer::withTrashed()->find($id);
+        if (!is_null($customer)) {
+            $customer->forceDelete();
+        }
+        return redirect('customer/trashdata');
+    }
+
+    // for permanent delete
+    public function storefile(Request $request)
+    {
+        p($request->all());
     }
 }

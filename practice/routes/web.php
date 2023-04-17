@@ -102,7 +102,22 @@ use Illuminate\Support\Facades\Route;
 
 // insert data using form
 use App\Http\Controllers\CustomerController;
+
 Route::get('/', [CustomerController::class, 'home']);
-Route::resource('/customer', CustomerController::class);
+Route::post('/', [CustomerController::class, 'home']);
+// Route::resource('/customer', CustomerController::class);
+Route::get('/customer/create', [CustomerController::class, 'create']);
+Route::get('/customer/{id}/edit', [CustomerController::class, 'edit']);
+Route::get('/customer/{id}/show', [CustomerController::class, 'show']);
 Route::post('/customer/create', [CustomerController::class, 'store'])->name('customer.create');
+Route::get('/customer', [CustomerController::class, 'index']);
+Route::get('/customer/destroy/{id}', [CustomerController::class, 'destroy'])->name('customer.destroy');
+Route::get('/customer/trash/{id}', [CustomerController::class, 'trash'])->name('customer.trash');
+Route::get('/customer/trashdata', [CustomerController::class, 'trashdata'])->name('customer.trashdata');
+Route::get('/customer/restore/{id}', [CustomerController::class, 'restore'])->name('customer.restore');
+Route::get('/customer/pdelete/{id}', [CustomerController::class, 'pdelete'])->name('customer.pdelete');
 Route::post('/customer/{id?}/edit', [CustomerController::class, 'update']);
+Route::post('/customer/storefile', [CustomerController::class, 'storefile']);
+Route::get('/customer/upload', function () {
+    return view('customer.upload');
+});

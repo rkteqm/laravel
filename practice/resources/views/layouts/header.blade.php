@@ -51,6 +51,9 @@
                     <li class="nav-item" role="presentation">
                         <a href="/customer" class="nav-link navbar-brand text-white">Customers</a>
                     </li>
+                    <li class="nav-item" role="presentation">
+                        <a href="{{ url('customer/trashdata') }}" class="nav-link navbar-brand text-white">Trash</a>
+                    </li>
                 </ul>
             </div>
         </nav>

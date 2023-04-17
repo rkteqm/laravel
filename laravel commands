@@ -9,3 +9,24 @@ php artisan make:migration add_coloumns_to_customers_table //
 php artisan migrate // for create migration
 php artisan make:model Customer // for creating model
 php artisan make:model Product --migration // creating model as well as migration of Product 
+composer dump-autoload // use this command after creating custom_helper and including it in composer.json file
+
+
+
+Date->/17/april/2023/
+custom helper
+composer dump-autoload // use this command after creating custom_helper and including it in composer.json file
+
+mutator and accessor
+mutator-> modify data saving into databse.
+accessor-> modify data after accessing from database
+
+soft deletes/deleted_at using migration
+php artisan make:migration add_deleted_at_to_customers_table
+adding namespace in Customer model -> use Illuminate\Database\Eloquent\SoftDeletes;
+Adding in Customer Class of customer model -> use SoftDeletes;
+withTrashed() => all(deleted + not_deleted)
+onlyTrashed() => only_deleted(deleted)
+restore() => for retriving deleted data
+forceDelete() => for permanent delete
+
