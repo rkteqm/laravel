@@ -6,6 +6,8 @@ use App\Models\Customer;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rules\Password;
 
+use function PHPUnit\Framework\isNull;
+
 class CustomerController extends Controller
 {
     /**
@@ -19,10 +21,23 @@ class CustomerController extends Controller
             return view('customer.home');
         }
     }
-    public function index()
+    public function index(Request $request)
     {
+        $search = $request['search'] ?? "";
+        if($search != ""){
+            // $customers = Customer::where('name', '=', $search)->get(); //search only exact match
+            // $customers = Customer::where('name', 'LIKE', "%$search")->get(); //search exact match of letter at the end
+            // $customers = Customer::where('name', 'LIKE', "%$search%")->get(); //search anywhere in the name
+            $customers = Customer::where('name', 'LIKE', "%$search%")->orWhere('email', 'LIKE', "%$search%")->get(); //search anywhere in the name or email
+        }else{
+            $customers = Customer::all(); 
+        }
+
+        $data = compact('customers', 'search');
+        return view('customer.index')->with($data);
+
         // $customers = Customer::orderBy('name')->get(); // order by name
-        $customers = Customer::where('soft_delete', 1)->orderBy('id', 'desc')->get(); // order id by descending 
+        // $customers = Customer::where('soft_delete', 1)->orderBy('id', 'desc')->get(); // order id by descending 
         // p($customers); // printing using custom helper
         // $customers = $customers->toArray();
         // echo "<pre>";
@@ -30,7 +45,7 @@ class CustomerController extends Controller
         // print_r($customers->toArray()); // in array
         // die;
         // return view('customer.index')->with($users);
-        return view('customer.index', compact('customers'));
+        // return view('customer.index', compact('customers'));
     }
 
     /**
@@ -213,9 +228,19 @@ class CustomerController extends Controller
         return redirect('customer/trashdata');
     }
 
-    // for permanent delete
+    // file upload functional
     public function storefile(Request $request)
     {
-        p($request->all());
+        $request->validate(
+            [
+                'image' => 'required|mimes:jpg,png,jpeg|max:2048',
+            ]
+        );
+
+        // p($request->all()); //custom helper funtion p()
+        // echo $request->file('image')->store('public/uploads'); //upload image with laravel unique file name
+        $fileName = time() . "-rs." . $request->file('image')->getClientOriginalExtension(); //upload image with custom name
+        echo $request->file('image')->storeAs('public/uploads', $fileName);
+        return redirect('customer/upload')->with('success', 'Image uploaded successfully');
     }
 }

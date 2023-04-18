@@ -13,9 +13,21 @@
                 <p>{{ $message }}</p>
             </div>
         @endif
-        <a href="{{ route('customer.create') }}">
-            <button class="btn btn-primary d-inline-block m-2 float-right">Add</button>
-        </a>
+        <div class="row m-2">
+            <form action="" class="col-9">
+                <div class="form-group">
+                    <input type="search" name="search" id="" class="form-control"
+                        placeholder="Search by name or email" aria-describedby="helpId" value="{{ $search }}">
+                </div>
+                <button class="btn btn-primary" type="submit">Search</button>
+                <a href="{{ url('/customer') }}" class="btn btn-primary">Reset</a>
+            </form>
+            <div class="col-3">
+                <a href="{{ route('customer.create') }}">
+                    <button class="btn btn-primary d-inline-block float-right">Add</button>
+                </a>
+            </div>
+        </div>
         <table class="table align-middle mb-0 bg-white">
             <thead class="bg-light">
                 <tr>

@@ -11,10 +11,20 @@
             </div>
         @endif
 
-        {!! Form::open(['url' => '/customer/storefile', 'method' => 'POST', 'enctype' => 'multipart/form-data', 'class' => 'px-md-2 mt-4']) !!}
+        {!! Form::open([
+            'url' => '/customer/storefile',
+            'method' => 'POST',
+            'enctype' => 'multipart/form-data',
+            'class' => 'px-md-2 mt-4',
+        ]) !!}
         <div class="row">
             <div class="form-outline mb-4 col-md-6">
                 <label class="form-label" for="form3Example1q">Select Image</label>
+                <span class="text-danger">*
+                    @error('image')
+                        {{ $message }}
+                    @enderror
+                </span>
                 <br>
                 {!! Form::file('image') !!}
             </div>
