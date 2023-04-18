@@ -31,6 +31,7 @@
         <table class="table align-middle mb-0 bg-white">
             <thead class="bg-light">
                 <tr>
+                    <th>Sr no.</th>
                     <th>Name/Email/Profile-Pic</th>
                     <th>Gender/DOB</th>
                     <th>Address</th>
@@ -39,8 +40,10 @@
                 </tr>
             </thead>
             <tbody>
+                @php $i = 1; @endphp
                 @foreach ($customers as $customer)
                     <tr>
+                        <td>{{ $i }}</td>
                         <td>
                             <div class="d-flex align-items-center">
                                 <img src="/assets/img/uploads/{{ $customer->profile_pic }}" alt=""
@@ -85,8 +88,14 @@
                             {{-- <a href="{{ route('customer.destroy', ['id' => $customer->id]) }}"><button class="btn btn-danger">Delete</button></a> --}}
                         </td>
                     </tr>
+                    @php $i++; @endphp
                 @endforeach
             </tbody>
         </table>
+        <div class="row">
+            {{-- {{ $customers->links() }} --}}
+            {{ $customers->render('pagination::bootstrap-5') }}
+            {{-- {!! $customers->withQueryString()->links('pagination::bootstrap-5') !!} --}}
+        </div>
     </div>
 @endsection

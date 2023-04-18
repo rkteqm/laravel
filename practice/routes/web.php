@@ -106,18 +106,56 @@ use App\Http\Controllers\CustomerController;
 Route::get('/', [CustomerController::class, 'home']);
 Route::post('/', [CustomerController::class, 'home']);
 // Route::resource('/customer', CustomerController::class);
-Route::get('/customer/create', [CustomerController::class, 'create']);
-Route::get('/customer/{id}/edit', [CustomerController::class, 'edit']);
-Route::get('/customer/{id}/show', [CustomerController::class, 'show']);
-Route::post('/customer/create', [CustomerController::class, 'store'])->name('customer.create');
-Route::get('/customer', [CustomerController::class, 'index']);
-Route::get('/customer/destroy/{id}', [CustomerController::class, 'destroy'])->name('customer.destroy');
-Route::get('/customer/trash/{id}', [CustomerController::class, 'trash'])->name('customer.trash');
-Route::get('/customer/trashdata', [CustomerController::class, 'trashdata'])->name('customer.trashdata');
-Route::get('/customer/restore/{id}', [CustomerController::class, 'restore'])->name('customer.restore');
-Route::get('/customer/pdelete/{id}', [CustomerController::class, 'pdelete'])->name('customer.pdelete');
-Route::post('/customer/{id?}/edit', [CustomerController::class, 'update']);
-Route::post('/customer/storefile', [CustomerController::class, 'storefile']);
-Route::get('/customer/upload', function () {
-    return view('customer.upload');
+
+// commenting for group routing
+// Route::get('/customer/create', [CustomerController::class, 'create']);
+// Route::get('/customer/{id}/edit', [CustomerController::class, 'edit']);
+// Route::get('/customer/{id}/show', [CustomerController::class, 'show']);
+// Route::post('/customer/create', [CustomerController::class, 'store'])->name('customer.create');
+// Route::get('/customer', [CustomerController::class, 'index']);
+// Route::get('/customer/destroy/{id}', [CustomerController::class, 'destroy'])->name('customer.destroy');
+// Route::get('/customer/trash/{id}', [CustomerController::class, 'trash'])->name('customer.trash');
+// Route::get('/customer/trashdata', [CustomerController::class, 'trashdata'])->name('customer.trashdata');
+// Route::get('/customer/restore/{id}', [CustomerController::class, 'restore'])->name('customer.restore');
+// Route::get('/customer/pdelete/{id}', [CustomerController::class, 'pdelete'])->name('customer.pdelete');
+// Route::post('/customer/{id?}/edit', [CustomerController::class, 'update']);
+// Route::post('/customer/storefile', [CustomerController::class, 'storefile']);
+// Route::get('/customer/upload', function () {
+//     return view('customer.upload');
+// });
+
+// group routing
+Route::group(['prefix' => 'customer'], function () {
+    Route::get('/create', [CustomerController::class, 'create']);
+    Route::get('/{id}/edit', [CustomerController::class, 'edit']);
+    Route::get('/{id}/show', [CustomerController::class, 'show']);
+    Route::post('/create', [CustomerController::class, 'store'])->name('customer.create');
+    Route::get('', [CustomerController::class, 'index']);
+    Route::get('/destroy/{id}', [CustomerController::class, 'destroy'])->name('customer.destroy');
+    Route::get('/trash/{id}', [CustomerController::class, 'trash'])->name('customer.trash');
+    Route::get('/trashdata', [CustomerController::class, 'trashdata'])->name('customer.trashdata');
+    Route::get('/restore/{id}', [CustomerController::class, 'restore'])->name('customer.restore');
+    Route::get('/pdelete/{id}', [CustomerController::class, 'pdelete'])->name('customer.pdelete');
+    Route::post('/{id?}/edit', [CustomerController::class, 'update']);
+    Route::post('/storefile', [CustomerController::class, 'storefile']);
+    Route::get('/upload', function () {
+        return view('customer.upload');
+    });
 });
+
+
+Route::get('/', function () {
+    return view('welcome');
+});
+
+Route::get('/dashboard', function () {
+    return view('dashboard');
+})->middleware(['auth', 'verified'])->name('dashboard');
+
+Route::middleware('auth')->group(function () {
+    Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
+    Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
+    Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+});
+
+require __DIR__.'/auth.php';

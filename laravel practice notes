@@ -31,7 +31,10 @@ withTrashed() => all(deleted + not_deleted)
 onlyTrashed() => only_deleted(deleted)
 restore() => for retriving deleted data
 forceDelete() => for permanent delete
-
+composer require laravel/ui   // for authentication
+php artisan ui bootstrap // for authentication
+sudo npm install
+sudo npm run dev
 
 
 Date->/18/april/2023/Tuesday
@@ -67,3 +70,10 @@ public function index(Request $request)
 	<button class="btn btn-primary" type="submit">Search</button>
 	<a href="{{ url('/customer') }}" class="btn btn-primary">Reset</a>
 </form>
+
+Authentication in laravel
+composer require laravel/ui
+php artisan ui bootstrap
+sudo npm install
+sudo npm run dev
+

@@ -30,7 +30,9 @@ class CustomerController extends Controller
             // $customers = Customer::where('name', 'LIKE', "%$search%")->get(); //search anywhere in the name
             $customers = Customer::where('name', 'LIKE', "%$search%")->orWhere('email', 'LIKE', "%$search%")->get(); //search anywhere in the name or email
         }else{
-            $customers = Customer::all(); 
+            // $customers = Customer::all(); 
+            // $customers = Customer::get(); 
+            $customers = Customer::paginate(10); 
         }
 
         $data = compact('customers', 'search');
