@@ -125,37 +125,50 @@ Route::post('/', [CustomerController::class, 'home']);
 // });
 
 // group routing
-Route::group(['prefix' => 'customer'], function () {
-    Route::get('/create', [CustomerController::class, 'create']);
-    Route::get('/{id}/edit', [CustomerController::class, 'edit']);
-    Route::get('/{id}/show', [CustomerController::class, 'show']);
-    Route::post('/create', [CustomerController::class, 'store'])->name('customer.create');
-    Route::get('', [CustomerController::class, 'index']);
-    Route::get('/destroy/{id}', [CustomerController::class, 'destroy'])->name('customer.destroy');
-    Route::get('/trash/{id}', [CustomerController::class, 'trash'])->name('customer.trash');
-    Route::get('/trashdata', [CustomerController::class, 'trashdata'])->name('customer.trashdata');
-    Route::get('/restore/{id}', [CustomerController::class, 'restore'])->name('customer.restore');
-    Route::get('/pdelete/{id}', [CustomerController::class, 'pdelete'])->name('customer.pdelete');
-    Route::post('/{id?}/edit', [CustomerController::class, 'update']);
-    Route::post('/storefile', [CustomerController::class, 'storefile']);
-    Route::get('/upload', function () {
-        return view('customer.upload');
-    });
-});
+// Route::group(['prefix' => 'customer'], function () {
+//     Route::get('/create', [CustomerController::class, 'create']);
+//     Route::get('/{id}/edit', [CustomerController::class, 'edit']);
+//     Route::get('/{id}/show', [CustomerController::class, 'show']);
+//     Route::post('/create', [CustomerController::class, 'store'])->name('customer.create');
+//     Route::get('', [CustomerController::class, 'index']);
+//     Route::get('/destroy/{id}', [CustomerController::class, 'destroy'])->name('customer.destroy');
+//     Route::get('/trash/{id}', [CustomerController::class, 'trash'])->name('customer.trash');
+//     Route::get('/trashdata', [CustomerController::class, 'trashdata'])->name('customer.trashdata');
+//     Route::get('/restore/{id}', [CustomerController::class, 'restore'])->name('customer.restore');
+//     Route::get('/pdelete/{id}', [CustomerController::class, 'pdelete'])->name('customer.pdelete');
+//     Route::post('/{id?}/edit', [CustomerController::class, 'update']);
+//     Route::post('/storefile', [CustomerController::class, 'storefile']);
+//     Route::get('/upload', function () {
+//         return view('customer.upload');
+//     });
+// });
 
 
-Route::get('/', function () {
-    return view('welcome');
-});
+// Route::get('/', function () {
+//     return view('welcome');
+// })->name('welcome');
 
-Route::get('/dashboard', function () {
-    return view('dashboard');
-})->middleware(['auth', 'verified'])->name('dashboard');
+// Route::get('/dashboard', function () {
+//     return view('dashboard');
+// })->middleware(['auth', 'verified'])->name('dashboard');
 
-Route::middleware('auth')->group(function () {
-    Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
-    Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
-    Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
-});
+// Route::middleware('auth')->group(function () {
+//     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
+//     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
+//     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+// });
 
-require __DIR__.'/auth.php';
+// require __DIR__.'/auth.php';
+
+// use Illuminate\Support\Facades\App;
+// Route::group(['prefix' => 'language'], function () {
+//     Route::get('/{lang?}', function ($lang = null) {
+//         App::setLocale($lang);
+//         return view('language');
+//     });
+// });
+
+
+// one to one relation 
+use App\Http\Controllers\UserController;
+Route::get('/data', [UserController::class, 'index']);

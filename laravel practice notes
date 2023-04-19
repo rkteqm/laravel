@@ -12,6 +12,7 @@ php artisan make:model Product --migration // creating model as well as migratio
 composer dump-autoload // use this command after creating custom_helper and including it in composer.json file
 php artisan make:seeder CustomerSeeder //craete CustomerSeeder.php file Database/Seeders/CustomerSeeder.php
 php artisan db:seed // after write insert code run this command for start seeding
+php artisan stub:publish // it is used to publish stub and customizing stub
 
 
 
@@ -35,7 +36,7 @@ composer require laravel/ui   // for authentication
 php artisan ui bootstrap // for authentication
 sudo npm install
 sudo npm run dev
-
+php artisan config:cache // while changing language in app.php file run this command
 
 Date->/18/april/2023/Tuesday
 Faker & seeder
@@ -76,4 +77,14 @@ composer require laravel/ui
 php artisan ui bootstrap
 sudo npm install
 sudo npm run dev
+
+
+Date->/19/april/2023/Wednesday
+Laravel localization
+php artisan config:cache // while changing language in app.php file run this command
+
+Laravel stub
+// adding this index() function by customizing pain stub by using command " php artisan stub:publish"
+
+
 

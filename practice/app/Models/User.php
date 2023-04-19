@@ -12,6 +12,15 @@ class User extends Authenticatable
 {
     use HasApiTokens, HasFactory, Notifiable;
 
+    protected $table =  'users';
+    protected $primaryKey =  'id';
+    function getDetail(){
+        return $this->hasOne('App\Models\Detail', 'user_id');
+    }
+    function getPost(){
+        return $this->hasMany('App\Models\Post', 'user_id');
+    }
+
     /**
      * The attributes that are mass assignable.
      *

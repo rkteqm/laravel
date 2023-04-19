@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use Illuminate\Validation\Rules\Password;
 
 use function PHPUnit\Framework\isNull;
+use Illuminate\Support\Facades\Auth;
 
 class CustomerController extends Controller
 {
@@ -23,20 +24,25 @@ class CustomerController extends Controller
     }
     public function index(Request $request)
     {
-        $search = $request['search'] ?? "";
-        if($search != ""){
-            // $customers = Customer::where('name', '=', $search)->get(); //search only exact match
-            // $customers = Customer::where('name', 'LIKE', "%$search")->get(); //search exact match of letter at the end
-            // $customers = Customer::where('name', 'LIKE', "%$search%")->get(); //search anywhere in the name
-            $customers = Customer::where('name', 'LIKE', "%$search%")->orWhere('email', 'LIKE', "%$search%")->get(); //search anywhere in the name or email
-        }else{
-            // $customers = Customer::all(); 
-            // $customers = Customer::get(); 
-            $customers = Customer::paginate(10); 
-        }
 
-        $data = compact('customers', 'search');
-        return view('customer.index')->with($data);
+        if (Auth::check()) {
+            $search = $request['search'] ?? "";
+            if ($search != "") {
+                // $customers = Customer::where('name', '=', $search)->get(); //search only exact match
+                // $customers = Customer::where('name', 'LIKE', "%$search")->get(); //search exact match of letter at the end
+                // $customers = Customer::where('name', 'LIKE', "%$search%")->get(); //search anywhere in the name
+                $customers = Customer::where('name', 'LIKE', "%$search%")->orWhere('email', 'LIKE', "%$search%")->get(); //search anywhere in the name or email
+            } else {
+                // $customers = Customer::all(); 
+                // $customers = Customer::get(); 
+                $customers = Customer::paginate(10);
+            }
+
+            $data = compact('customers', 'search');
+            return view('customer.index')->with($data);
+        }else{
+            return redirect()->route('welcome');
+        }
 
         // $customers = Customer::orderBy('name')->get(); // order by name
         // $customers = Customer::where('soft_delete', 1)->orderBy('id', 'desc')->get(); // order id by descending 
