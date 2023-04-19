@@ -14,6 +14,7 @@
         .abcde {
             background-color: rgb(230, 74, 126);
         }
+
         .abcd {
             /* background-color: rgb(233, 30, 99); */
             /* background-color: #009688; */
@@ -26,7 +27,8 @@
             background: linear-gradient(to right, rgba(132, 250, 176, 1), rgba(143, 211, 244, 1));
             border: 0;
         }
-        .logo{
+
+        .logo {
             height: 40px;
         }
     </style>
@@ -45,15 +47,31 @@
                     <li class="nav-item">
                         <a href="/" class="nav-link navbar-brand text-white">Home</a>
                     </li>
-                    <li class="nav-item" role="presentation">
-                        <a href="/customer/create" class="nav-link navbar-brand text-white">Register</a>
-                    </li>
-                    <li class="nav-item" role="presentation">
-                        <a href="/customer" class="nav-link navbar-brand text-white">Customers</a>
-                    </li>
-                    <li class="nav-item" role="presentation">
-                        <a href="{{ url('customer/trashdata') }}" class="nav-link navbar-brand text-white">Trash</a>
-                    </li>
+                    @if (Route::has('login'))
+                        @auth
+                            <li class="nav-item" role="presentation">
+                                <a href="/customer" class="nav-link navbar-brand text-white">Customers</a>
+                            </li>
+                            <li class="nav-item" role="presentation">
+                                <a href="{{ url('customer/trashdata') }}" class="nav-link navbar-brand text-white">Trash</a>
+                            </li>
+                            <li class="nav-item" role="presentation">
+                                <a class="nav-link navbar-brand text-white">
+                                    <form method="POST" action="{{ route('logout') }}">
+                                        @csrf
+                                        <button type="submit">Logout</button>
+                                    </form>
+                                </a>
+                            </li>
+                        @else
+                            <li class="nav-item" role="presentation">
+                                <a href="{{ url('customer/login') }}" class="nav-link navbar-brand text-white">Login</a>
+                            </li>
+                            <li class="nav-item" role="presentation">
+                                <a href="/customer/create" class="nav-link navbar-brand text-white">Register</a>
+                            </li>
+                        @endauth
+                    @endif
                 </ul>
             </div>
         </nav>

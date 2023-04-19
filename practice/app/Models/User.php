@@ -14,11 +14,13 @@ class User extends Authenticatable
 
     protected $table =  'users';
     protected $primaryKey =  'id';
-    function getDetail(){
-        return $this->hasOne('App\Models\Detail', 'user_id');
+    function detail()
+    {
+        return $this->hasOne('App\Models\Detail', 'user_id', 'id');
     }
-    function getPost(){
-        return $this->hasMany('App\Models\Post', 'user_id');
+    function post()
+    {
+        return $this->hasMany('App\Models\Post', 'user_id', 'id');
     }
 
     /**

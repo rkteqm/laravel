@@ -40,7 +40,7 @@ class CustomerController extends Controller
 
             $data = compact('customers', 'search');
             return view('customer.index')->with($data);
-        }else{
+        } else {
             return redirect()->route('welcome');
         }
 
@@ -250,5 +250,28 @@ class CustomerController extends Controller
         $fileName = time() . "-rs." . $request->file('image')->getClientOriginalExtension(); //upload image with custom name
         echo $request->file('image')->storeAs('public/uploads', $fileName);
         return redirect('customer/upload')->with('success', 'Image uploaded successfully');
+    }
+
+    // public function login(Request $request)
+    // {
+    //     p($request->all());
+    // }
+
+    public function login(Request $request)
+    {
+        $credentials = $request->validate([
+            'email' => ['required', 'email'],
+            'password' => ['required'],
+        ]);
+
+        if (Auth::attempt($credentials)) {
+            $request->session()->regenerate();
+
+            return redirect()->intended('customer');
+        }
+
+        return back()->withErrors([
+            'email' => 'The provided credentials do not match our records.',
+        ])->onlyInput('email');
     }
 }

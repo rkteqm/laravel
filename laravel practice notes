@@ -87,4 +87,10 @@ Laravel stub
 // adding this index() function by customizing pain stub by using command " php artisan stub:publish"
 
 
+hasOne and hasMany relation in laravel
+
+Middleware in laravel
+1. Global middleware
+2. Route middleware
+3. Group middleware
 
