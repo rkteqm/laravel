@@ -13,6 +13,12 @@ composer dump-autoload // use this command after creating custom_helper and incl
 php artisan make:seeder CustomerSeeder //craete CustomerSeeder.php file Database/Seeders/CustomerSeeder.php
 php artisan db:seed // after write insert code run this command for start seeding
 php artisan stub:publish // it is used to publish stub and customizing stub
+composer create-project laravel/laravel AdminUserAuthSystem
+composer require laravel/breeze
+php artisan breeze:install
+php artisan migrate
+php artisan make:model Admin -m
+
 
 
 
