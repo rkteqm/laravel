@@ -7,7 +7,6 @@
     @endphp --}}
 
     <div class="container">
-        <h1 class="m-4 text-center">Welcome to users index page...!</h1>
         @if ($message = Session::get('success'))
             <div class="alert alert-success">
                 <p>{{ $message }}</p>
@@ -94,7 +93,9 @@
         </table>
         <div class="row">
             {{-- {{ $customers->links() }} --}}
-            {{ $customers->render('pagination::bootstrap-5') }}
+            @if (!$search)
+                {{ $customers->render('pagination::bootstrap-5') }}
+            @endif
             {{-- {!! $customers->withQueryString()->links('pagination::bootstrap-5') !!} --}}
         </div>
     </div>

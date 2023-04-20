@@ -205,7 +205,8 @@ class CustomerController extends Controller
         if (!is_null($customer)) {
             $customer->delete();
         }
-        return redirect()->action([CustomerController::class, 'index'])->with('success', 'Moved to trash successfully');
+        return redirect()->back()->with('success', 'Moved to trash successfully');
+        // return redirect()->action([CustomerController::class, 'index'])->with('success', 'Moved to trash successfully');
     }
 
     // trash listing
