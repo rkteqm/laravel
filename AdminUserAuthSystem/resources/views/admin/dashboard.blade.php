@@ -16,12 +16,12 @@
     </div>
 </x-app-layout> --}}
 
-<!-- Authentication logout user -->
-<h2 class="text-center">User Dashboard</h2>
-<form method="POST" action="{{ route('logout') }}">
+<!-- Authentication logout admin -->
+<h2 class="text-center">Admin Dashboard</h2>
+<form method="POST" action="{{ route('admin.logout') }}">
     @csrf
 
-    <x-dropdown-link :href="route('logout')"
+    <x-dropdown-link :href="route('admin.logout')"
         onclick="event.preventDefault();
                             this.closest('form').submit();">
         {{ __('Log Out') }}

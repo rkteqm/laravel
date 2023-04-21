@@ -23,7 +23,6 @@ Route::get('/dashboard', function () {
 })->middleware(['auth', 'verified'])->name('dashboard');
 
 Route::middleware('auth')->group(function () {
-    Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
@@ -32,12 +31,16 @@ require __DIR__ . '/auth.php';
 
 
 // Admin
-Route::namespace('Admin')->prefix('admin')->name('admin.')->group(function () {
-    Route::get('login', function () {
-        return view('admin.auth.login');
-    });
-    // Route::namespace('Auth')->group(function () {
-    // login route
-    // Route::get('login', 'AuthenticatedSessionController@create')->name('login');
+require __DIR__ . '/admin/auth.php';
+
+
+// Route::namespace('Admin')->prefix('admin')->name('admin.')->group(function () {
+    // Route::get('login', function () {
+    //     return view('admin.auth.login');
     // });
-});
+    // Route::namespace('Auth')->group(function () {
+        // login route
+        // Route::get('login', 'AuthenticatedSessionController@create')->name('login');
+        // Route::get('/login', [AuthenticatedSessionController::class, 'create'])->name('login');
+//     });
+// });

@@ -848,7 +848,11 @@
         @endif
 
         <div class="max-w-7xl mx-auto p-6 lg:p-8">
+            @auth('admin')
+            <a href="{{ route('admin.dashboard') }}">Admin Dashboard</a>
+            @else
             <a href="{{ route('admin.login') }}">Admin Login</a>
+            @endauth
             <div class="mt-16">
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-6 lg:gap-8">
                     <a href="https://laravel.com/docs"
