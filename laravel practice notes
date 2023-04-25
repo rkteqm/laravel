@@ -20,6 +20,7 @@ php artisan migrate
 php artisan make:model Admin -m
 
 
+fzzqlzhifeggkqmz
 
 
 Date->/17/april/2023/
@@ -83,6 +84,9 @@ composer require laravel/ui
 php artisan ui bootstrap
 sudo npm install
 sudo npm run dev
+
+
+fzzqlzhifeggkqmz
 
 
 Date->/19/april/2023/Wednesday
