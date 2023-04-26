@@ -7,6 +7,18 @@
             </a>
         </li>
         <li class="nav-item">
+            <a class="nav-link" href="{{ route('admin.addschool') }}">
+                <i class="icon-head menu-icon"></i>
+                <span class="menu-title">Add School</span>
+            </a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="{{ route('admin.school') }}">
+                <i class="icon-grid menu-icon"></i>
+                <span class="menu-title">Schools</span>
+            </a>
+        </li>
+        {{-- <li class="nav-item">
             <a class="nav-link" data-toggle="collapse" href="#ui-basic" aria-expanded="false" aria-controls="ui-basic">
                 <i class="icon-layout menu-icon"></i>
                 <span class="menu-title">UI Elements</span>
@@ -109,7 +121,7 @@
                 <i class="icon-paper menu-icon"></i>
                 <span class="menu-title">Documentation</span>
             </a>
-        </li>
+        </li> --}}
         <li class="nav-item">
             <form method="POST" action="{{ route('admin.logout') }}">
                 @csrf

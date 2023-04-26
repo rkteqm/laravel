@@ -6,6 +6,9 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Validation\Rules\Password;
+use Illuminate\Support\Facades\Hash;
+use App\Models\School;
 
 class SchoolController extends Controller
 {
@@ -23,15 +26,51 @@ class SchoolController extends Controller
 
     public function store(Request $request)
     {
-        echo "<pre>";
-        print_r($request->all());
-        die;
-        return redirect()->route('admin.school.school');
+        $request->validate(
+            [
+                'logo' => 'required|mimes:png|max:2048',
+                'name' => 'required',
+                'email' => 'required|email|unique:schools',
+                'password' => [
+                    'required',
+                    Password::min(8)
+                        ->letters()
+                        ->mixedCase()
+                        ->numbers()
+                        ->symbols()
+                ],
+                'type' => 'required',
+                'city' => 'required',
+                'description' => 'required',
+            ]
+        );
+
+        DB::transaction(function () use ($request) {
+
+            // save data into uploads folder
+            $fileName = time() . '.' . $request->logo->extension();
+            $request->logo->move(public_path('assets/img/uploads/logo'), $fileName);
+
+            // Insert data into the 'schools' table
+            School::create([
+                'user_id' => Auth::guard('admin')->id(),
+                'logo' => $fileName,
+                'name' => $request->name,
+                'email' => $request->email,
+                'password' => Hash::make($request->password),
+                'type' => $request->type,
+                'city' => $request->city,
+                'description' => $request->description,
+            ]);
+        });
+        return redirect()->route('admin.school');
     }
 
     public function school()
     {
-        return view('admin.school.school');
+        $schools = School::get();
+        $schools = compact('schools');
+        return view('admin.school.school')->with($schools);
     }
 
     public function test()
