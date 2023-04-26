@@ -29,7 +29,7 @@
                 @enderror
             </span>
             <div class="form-field d-flex align-items-center">
-                <input type="email" name="email" placeholder="Username" value="{{ old('email') }}">
+                <input class="text-center" type="email" name="email" placeholder="Username" value="{{ old('email') }}">
             </div>
             <span class="text-danger far fa-user">
                 @error('password')
@@ -37,7 +37,7 @@
                 @enderror
             </span>
             <div class="form-field d-flex align-items-center">
-                <input type="password" name="password" placeholder="Password">
+                <input class="text-center" type="password" name="password" placeholder="Password">
             </div>
             <button class="btn mt-3">Login</button>
         </form>

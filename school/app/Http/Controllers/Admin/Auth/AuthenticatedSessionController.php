@@ -27,11 +27,11 @@ class AuthenticatedSessionController extends Controller
     {
         // print_r($request->all());die;
         $request['user_type'] = 0;
-        
+
         $request->authenticate();
 
         $request->session()->regenerate();
-        
+
         return redirect()->intended(RouteServiceProvider::ADMIN_HOME);
     }
 
@@ -46,6 +46,6 @@ class AuthenticatedSessionController extends Controller
 
         $request->session()->regenerateToken();
 
-        return redirect('/');
+        return redirect()->route('admin.login');
     }
 }

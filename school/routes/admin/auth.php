@@ -1,6 +1,6 @@
 <?php
 
-use App\Http\Controllers\Admin\HomeController;
+use App\Http\Controllers\Admin\SchoolController;
 use App\Http\Controllers\Admin\Auth\AuthenticatedSessionController;
 use App\Http\Controllers\Admin\Auth\PasswordResetLinkController;
 use Illuminate\Support\Facades\Route;
@@ -22,8 +22,11 @@ Route::middleware('guest:admin')->prefix('admin')->name('admin.')->group(functio
 Route::middleware('admin')->prefix('admin')->name('admin.')->group(function () {
 
     // Route::middleware('admin')->group(function () {
-    Route::get('dashboard', [HomeController::class, 'index'])->name('dashboard');
+    Route::get('dashboard', [SchoolController::class, 'index'])->name('dashboard');
     // });
+    Route::get('test', [SchoolController::class, 'test'])
+        ->name('test');
+
     Route::post('logout', [AuthenticatedSessionController::class, 'destroy'])
         ->name('logout');
 });
