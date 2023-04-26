@@ -11,11 +11,27 @@ class SchoolController extends Controller
 {
     public function index()
     {
-        if (Auth::guard('admin')) {
-            $auth = Auth::guard('admin')->user();
-            $auth = compact('auth');
-            return view('admin.dashboard')->with($auth);
-        }
+        $auth = Auth::guard('admin')->user();
+        $auth = compact('auth');
+        return view('admin.dashboard')->with($auth);
+    }
+
+    public function create()
+    {
+        return view('admin.school.addschool');
+    }
+
+    public function store(Request $request)
+    {
+        echo "<pre>";
+        print_r($request->all());
+        die;
+        return redirect()->route('admin.school.school');
+    }
+
+    public function school()
+    {
+        return view('admin.school.school');
     }
 
     public function test()

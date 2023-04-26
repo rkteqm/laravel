@@ -21,12 +21,15 @@ Route::middleware('guest:admin')->prefix('admin')->name('admin.')->group(functio
 
 Route::middleware('admin')->prefix('admin')->name('admin.')->group(function () {
 
-    // Route::middleware('admin')->group(function () {
     Route::get('dashboard', [SchoolController::class, 'index'])->name('dashboard');
-    // });
-    Route::get('test', [SchoolController::class, 'test'])
-        ->name('test');
 
-    Route::post('logout', [AuthenticatedSessionController::class, 'destroy'])
-        ->name('logout');
+    Route::get('school', [SchoolController::class, 'school'])->name('school');
+
+    Route::get('addschool', [SchoolController::class, 'create'])->name('addschool');
+
+    Route::post('addschool', [SchoolController::class, 'store'])->name('addschool');
+
+    Route::get('test', [SchoolController::class, 'test'])->name('test');
+
+    Route::post('logout', [AuthenticatedSessionController::class, 'destroy'])->name('logout');
 });

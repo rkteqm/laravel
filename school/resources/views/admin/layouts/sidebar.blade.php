@@ -77,15 +77,15 @@
         <li class="nav-item">
             <a class="nav-link" data-toggle="collapse" href="#auth" aria-expanded="false" aria-controls="auth">
                 <i class="icon-head menu-icon"></i>
-                <span class="menu-title">User Pages</span>
+                <span class="menu-title">School Pages</span>
                 <i class="menu-arrow"></i>
             </a>
             <div class="collapse" id="auth">
                 <ul class="nav flex-column sub-menu">
-                    <li class="nav-item"> <a class="nav-link" href="pages/samples/login.html"> Login </a>
+                    <li class="nav-item"> <a class="nav-link" href="{{ route('admin.school') }}"> Schools </a>
                     </li>
-                    <li class="nav-item"> <a class="nav-link" href="pages/samples/register.html">
-                            Register </a></li>
+                    <li class="nav-item"> <a class="nav-link" href="{{ route('admin.addschool') }}">
+                            Add School </a></li>
                 </ul>
             </div>
         </li>

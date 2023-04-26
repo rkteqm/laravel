@@ -25,7 +25,6 @@ class AuthenticatedSessionController extends Controller
      */
     public function store(AdminLoginRequest $request): RedirectResponse
     {
-        // print_r($request->all());die;
         $request['user_type'] = 0;
 
         $request->authenticate();
