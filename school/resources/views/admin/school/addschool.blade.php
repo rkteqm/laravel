@@ -1,8 +1,5 @@
 @extends('admin.layouts.main')
 
-
-
-
 @section('main-section')
     <!-- main-panel start -->
     <div class="main-panel">
