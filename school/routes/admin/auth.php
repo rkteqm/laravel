@@ -17,6 +17,8 @@ Route::middleware('guest:admin')->prefix('admin')->name('admin.')->group(functio
 
     Route::post('forgot-password', [PasswordResetLinkController::class, 'store'])
         ->name('password.email');
+
+    Route::get('test', [SchoolController::class, 'test'])->name('test');
 });
 
 Route::middleware('admin')->prefix('admin')->name('admin.')->group(function () {
@@ -29,7 +31,6 @@ Route::middleware('admin')->prefix('admin')->name('admin.')->group(function () {
 
     Route::post('addschool', [SchoolController::class, 'store'])->name('addschool');
 
-    Route::get('test', [SchoolController::class, 'test'])->name('test');
 
     Route::post('logout', [AuthenticatedSessionController::class, 'destroy'])->name('logout');
 });

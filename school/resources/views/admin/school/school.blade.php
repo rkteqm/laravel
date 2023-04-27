@@ -47,8 +47,8 @@
                                                     {{ $school->email }}
                                                 </td>
                                                 <td class="text-center">
-                                                    {{ $school->type == 'G' ? 'Government' : ''}}
-                                                    {{ $school->type == 'P' ? 'Private' : ''}}
+                                                    {{ $school->type == 'G' ? 'Government' : '' }}
+                                                    {{ $school->type == 'P' ? 'Private' : '' }}
                                                 </td>
                                                 <td>
                                                     {{ $school->city }}

@@ -41,6 +41,9 @@ require __DIR__ . '/auth.php';
 // Admin
 require __DIR__ . '/admin/auth.php';
 
+// School
+require __DIR__ . '/school/auth.php';
+
 
 // Route::namespace('Admin')->prefix('admin')->name('admin.')->group(function () {
     // Route::get('login', function () {
