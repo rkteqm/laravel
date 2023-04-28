@@ -22,7 +22,7 @@ Route::middleware('guest:school')->prefix('school')->name('school.')->group(func
 
 Route::middleware('school')->prefix('school')->name('school.')->group(function () {
 
-    Route::get('dashboard/{slug}' , [StaffController::class, 'index'])->name('dashboard');
+    Route::get('dashboard/{slug?}' , [StaffController::class, 'index'])->name('dashboard');
 
     Route::post('logout', [AuthenticatedSessionController::class, 'destroy'])->name('logout');
 });

@@ -11,6 +11,7 @@
     <link href="/assets/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="/assets/css/all.min.css">
     <link rel="stylesheet" href="/assets/css/login.css">
+    <link href="assets/css/style.css" rel="stylesheet">
 
 </head>
 
