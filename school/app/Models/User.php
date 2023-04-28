@@ -15,11 +15,6 @@ class User extends Authenticatable
     protected $table =  'users';
     protected $primaryKey =  'id';
 
-    public function userDetail(): HasOne
-    {
-        return $this->hasOne(UserDetail::class, 'user_id', 'id');
-    }
-
     /**
      * The attributes that are mass assignable.
      *

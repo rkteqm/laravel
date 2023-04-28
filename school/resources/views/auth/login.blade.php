@@ -9,7 +9,7 @@
             <div class="text-center mt-4 name">
                 Staff Login
             </div>
-            <form class="p-3 mt-3" method="POST" action="{{ route('admin.login') }}">
+            <form class="p-3 mt-3" method="POST" action="{{ route('login') }}">
                 @csrf
                 <span class="text-danger far fa-user">
                     @error('email')
@@ -31,7 +31,13 @@
                 <button class="btn mt-3">Login</button>
             </form>
             <div class="text-center fs-6">
-                <a href="#">Forget password?</a> or <a href="#">Sign up</a>
+                @if (Route::has('password.request'))
+                <a href="{{ route('password.request') }}">Forget password?</a>
+                @endif
+                or
+                @if (Route::has('register'))
+                    <a href="{{ route('register') }}">Sign up</a>
+                @endif
             </div>
         </div>
     </section>

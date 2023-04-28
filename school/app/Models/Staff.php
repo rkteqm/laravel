@@ -21,6 +21,7 @@ class Staff extends Authenticatable
      * @var array<int, string>
      */
     protected $fillable = [
+        'school_id',
         'name',
         'email',
         'password',

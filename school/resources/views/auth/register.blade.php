@@ -1,52 +1,95 @@
-<x-guest-layout>
-    <form method="POST" action="{{ route('register') }}">
-        @csrf
+@extends('layouts.main')
 
-        <!-- Name -->
-        <div>
-            <x-input-label for="name" :value="__('Name')" />
-            <x-text-input id="name" class="block mt-1 w-full" type="text" name="name" :value="old('name')" required autofocus autocomplete="name" />
-            <x-input-error :messages="$errors->get('name')" class="mt-2" />
+@section('main-section')
+    <section class="vh-100 gradient-custom abcd">
+        <div class="container h-100">
+            <div class="row justify-content-center align-items-center h-100">
+                <div class="col-12 col-lg-9 col-xl-7">
+                    <div class="card shadow-2-strong card-registration" style="border-radius: 15px;">
+                        <div class="card-body p-md-5">
+                            <h3 class="pb-md-0 mb-md-5 text-center">Registration Form</h3>
+                            <form action="" method="POST" enctype="multipart/form-data">
+                                @csrf
+                                <div class="row">
+
+                                    {{-- School input --}}
+                                    <div class="mb-3">
+                                        <label for="" class="form-label">School</label>
+                                        <span class="text-danger">*
+                                            @error('school')
+                                                {{ $message }}
+                                            @enderror
+                                        </span>
+                                        <select class="form-control" name="school">
+                                            <option selected disabled>Select your School</option>
+                                            @foreach ($schools as $school)
+                                                <option {{ old('school') == $school->id ? 'selected' : '' }}
+                                                    value="{{ $school->id }}">{{ $school->name }}</option>
+                                            @endforeach
+                                        </select>
+                                    </div>
+
+                                    {{-- Name input --}}
+                                    <div class="mb-3">
+                                        <label for="" class="form-label">Name</label>
+                                        <span class="text-danger">*
+                                            @error('name')
+                                                {{ $message }}
+                                            @enderror
+                                        </span>
+                                        <input type="text" name="name" class="form-control"
+                                            value="{{ old('name') }}">
+                                    </div>
+
+                                    {{-- Email input --}}
+                                    <div class="mb-3">
+                                        <label for="" class="form-label">Email</label>
+                                        <span class="text-danger">*
+                                            @error('email')
+                                                {{ $message }}
+                                            @enderror
+                                        </span>
+                                        <input type="email" name="email" class="form-control"
+                                            value="{{ old('email') }}">
+                                    </div>
+
+                                    {{-- Password input --}}
+                                    <div class="mb-3">
+                                        <label for="" class="form-label">Password</label>
+                                        <span class="text-danger">*
+                                            @error('password')
+                                                {{ $message }}
+                                            @enderror
+                                        </span>
+                                        <input type="password" name="password" class="form-control"
+                                            value="{{ old('password') }}">
+                                    </div>
+
+                                    {{-- Confirm Password input --}}
+                                    <div class="mb-3">
+                                        <label for="" class="form-label">Confirm Password</label>
+                                        <span class="text-danger">*
+                                            @error('confirm_password')
+                                                {{ $message }}
+                                            @enderror
+                                        </span>
+                                        <input type="password" name="confirm_password" class="form-control"
+                                            value="{{ old('confirm_password') }}">
+                                    </div>
+
+                                    <div class="d-flex justify-content-center">
+                                        <button type="submit"
+                                            class="btn btn-success btn-block btn-lg gradient-custom-4 text-body">
+                                            Register
+                                        </button>
+                                    </div>
+                                </div>
+
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
-
-        <!-- Email Address -->
-        <div class="mt-4">
-            <x-input-label for="email" :value="__('Email')" />
-            <x-text-input id="email" class="block mt-1 w-full" type="email" name="email" :value="old('email')" required autocomplete="username" />
-            <x-input-error :messages="$errors->get('email')" class="mt-2" />
-        </div>
-
-        <!-- Password -->
-        <div class="mt-4">
-            <x-input-label for="password" :value="__('Password')" />
-
-            <x-text-input id="password" class="block mt-1 w-full"
-                            type="password"
-                            name="password"
-                            required autocomplete="new-password" />
-
-            <x-input-error :messages="$errors->get('password')" class="mt-2" />
-        </div>
-
-        <!-- Confirm Password -->
-        <div class="mt-4">
-            <x-input-label for="password_confirmation" :value="__('Confirm Password')" />
-
-            <x-text-input id="password_confirmation" class="block mt-1 w-full"
-                            type="password"
-                            name="password_confirmation" required autocomplete="new-password" />
-
-            <x-input-error :messages="$errors->get('password_confirmation')" class="mt-2" />
-        </div>
-
-        <div class="flex items-center justify-end mt-4">
-            <a class="underline text-sm text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-100 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 dark:focus:ring-offset-gray-800" href="{{ route('login') }}">
-                {{ __('Already registered?') }}
-            </a>
-
-            <x-primary-button class="ml-4">
-                {{ __('Register') }}
-            </x-primary-button>
-        </div>
-    </form>
-</x-guest-layout>
+    </section>
+@endsection

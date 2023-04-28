@@ -43,6 +43,7 @@ class AuthenticatedSessionController extends Controller
 
         $request->session()->regenerateToken();
 
-        return redirect()->route('school.login');
+        // return redirect()->route('school.login');
+        return redirect('/');
     }
 }
