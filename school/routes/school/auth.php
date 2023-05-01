@@ -1,6 +1,6 @@
 <?php
 
-use App\Http\Controllers\School\StaffController;
+use App\Http\Controllers\School\ArticleController;
 use App\Http\Controllers\School\Auth\AuthenticatedSessionController;
 use App\Http\Controllers\School\Auth\PasswordResetLinkController;
 use Illuminate\Support\Facades\Route;
@@ -22,7 +22,16 @@ Route::middleware('guest:school')->prefix('school')->name('school.')->group(func
 
 Route::middleware('school')->prefix('school')->name('school.')->group(function () {
 
-    Route::get('dashboard/{slug?}' , [StaffController::class, 'index'])->name('dashboard');
+    Route::get('dashboard/{slug?}', [ArticleController::class, 'index'])->name('dashboard');
+
+    Route::get('addarticle/{slug?}', [ArticleController::class, 'create'])
+        ->name('addarticle');
+
+    Route::post('addarticle', [ArticleController::class, 'store'])
+        ->name('addarticle');
+
+    Route::get('articles/{slug?}', [ArticleController::class, 'show'])
+        ->name('articles');
 
     Route::post('logout', [AuthenticatedSessionController::class, 'destroy'])->name('logout');
 });

@@ -19,9 +19,10 @@ class UserController extends Controller
     {
         $auth = Auth::user();
         $id = $auth->school_id;
+        $articles = DB::table('articles')->where('school_id', $id)->orderBy('id', 'desc')->get();
         $school = DB::table('schools')->find($id);
         $slug = $school->slug;
-        $data = compact('auth', 'slug');
+        $data = compact('auth', 'slug', 'articles');
 
         return view('dashboard')->with($data);
     }

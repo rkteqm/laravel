@@ -50,7 +50,7 @@
         @auth('admin')
             <a href="{{ route('admin.dashboard') }}" class="get-started-btn">Admin Dashboard</a>
         @else
-            <a href="{{ route('admin.login') }}" class="get-started-btn">Admin</a>
+            <a href="{{ route('admin.login') }}" class="get-started-btn">Super Admin</a>
         @endauth
     </div>
 </header><!-- End Header -->
