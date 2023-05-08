@@ -104,3 +104,53 @@ Middleware in laravel
 2. Route middleware
 3. Group middleware
 
+
+//for removing coloumn
+public function up(): void
+    {
+        Schema::table('books', function (Blueprint $table) {
+            $table->string('description')->after('isbn_no');
+            $table->dropColumn('barcode');
+        });
+    }
+
+    /**
+     * Reverse the migrations.
+     */
+    public function down(): void
+    {
+        Schema::table('books', function (Blueprint $table) {
+            $table->string('barcode');
+        });
+    }
+    
+ # for inserting multiple values old values in checkbox   
+<div class="form-group col-6">
+<label for="exampleInputCity1">Select Book Categories</label>
+<span class="text-danger">
+    @error('category')
+        {{ $message }}
+    @enderror
+</span>
+@php
+    $string = $book->category;
+    $catdb = explode(',', $string);
+    $count = count($catdb);
+@endphp
+<!-- HTML code for the checkboxes -->
+<div class="form-check">
+    <div class="row ml-2">
+        @foreach ($category as $cat)
+            <div class="col-2">
+                <input class="form-check-input"
+                    @for ($i = 0; $i < $count; $i++) {{ $catdb[$i] == $cat->id ? 'checked' : '' }} @endfor
+                    @if (is_array(old('category')) && in_array($cat->id, old('category'))) checked @endif type="checkbox"
+                    name="category[]" value="{{ $cat->id }}" id="option1">
+                <label class="">
+                    {{ $cat->name }}
+                </label>
+            </div>
+        @endforeach
+    </div>
+</div>
+</div>    

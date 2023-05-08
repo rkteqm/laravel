@@ -9,6 +9,7 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Validation\Rules\Password;
 use Illuminate\Support\Facades\Hash;
 use App\Models\School;
+use App\Models\Staff;
 use App\Models\Article;
 use Illuminate\Support\Facades\Mail;
 use App\Mail\SchoolMail;
@@ -25,8 +26,8 @@ class ArticleController extends Controller
     public function create()
     {
         $auth = Auth::guard('school')->user();
-        $auth = compact('auth');
-        return view('school.article.create')->with($auth);
+        $data = compact('auth');
+        return view('school.article.create')->with($data);
     }
 
     /**
@@ -69,5 +70,13 @@ class ArticleController extends Controller
         $articles = DB::table('articles')->where('school_id', $auth->id)->orderBy('id', 'desc')->get();
         $data = compact('auth', 'articles');
         return view('school.article.show')->with($data);
+    }
+
+    public function staff()
+    {
+        $auth = Auth::guard('school')->user();
+        $staffs = DB::table('staffs')->where('school_id', $auth->id)->orderBy('id', 'desc')->get();
+        $data = compact('auth', 'staffs');
+        return view('school.staff')->with($data);
     }
 }
