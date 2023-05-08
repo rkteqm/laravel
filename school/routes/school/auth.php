@@ -33,5 +33,8 @@ Route::middleware('school')->prefix('school')->name('school.')->group(function (
     Route::get('articles/{slug?}', [ArticleController::class, 'show'])
         ->name('articles');
 
+    Route::get('staff/{slug?}', [ArticleController::class, 'staff'])
+        ->name('staff');
+
     Route::post('logout', [AuthenticatedSessionController::class, 'destroy'])->name('logout');
 });
